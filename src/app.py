@@ -38,6 +38,48 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+
+    # 🏀 Sports
+    "Basketball Team": {
+        "description": "Team training and interschool basketball matches",
+        "schedule": "Mondays and Thursdays, 4:00 PM - 6:00 PM",
+        "max_participants": 15,
+        "participants": []
+    },
+    "Swimming Club": {
+        "description": "Swimming practice and competitions",
+        "schedule": "Wednesdays and Fridays, 3:00 PM - 5:00 PM",
+        "max_participants": 10,
+        "participants": []
+    },
+
+    # 🎨 Artistic
+    "Painting Workshop": {
+        "description": "Explore painting techniques and artistic expression",
+        "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 12,
+        "participants": []
+    },
+    "Drama Club": {
+        "description": "Acting, improvisation, and theater performances",
+        "schedule": "Thursdays, 4:00 PM - 6:00 PM",
+        "max_participants": 20,
+        "participants": []
+    },
+
+    # 🧠 Intellectual
+    "Debate Club": {
+        "description": "Develop argumentation and public speaking skills",
+        "schedule": "Mondays, 3:30 PM - 5:00 PM",
+        "max_participants": 15,
+        "participants": []
+    },
+    "Math Olympiad Prep": {
+        "description": "Advanced problem-solving and competition preparation",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 10,
+        "participants": []
     }
 }
 
@@ -63,5 +105,11 @@ def signup_for_activity(activity_name: str, email: str):
     activity = activities[activity_name]
 
     # Add student
+    if email in activity["participants"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Student already registered for this activity"
+        )
+
     activity["participants"].append(email)
     return {"message": f"Signed up {email} for {activity_name}"}
